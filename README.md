@@ -11,9 +11,9 @@ Below is an example of the lcdproc-client code implementation.
 If you want to try the code but do not have a lcd connected to your computer then try run the curses driver for lcdproc in a terminal window (LCDproc -d curses).
 
 
-var Client = require('node-rest-client').Client;
-var LcdClient = require('./lcdproc-client.js').LcdClient;
-
+	var Client = require('node-rest-client').Client;
+	var LcdClient = require('./lcdproc-client.js').LcdClient;
+	
 	var cnt = 0;
 	
 	lc = new LcdClient(13666,'localhost');
