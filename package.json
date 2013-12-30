@@ -1,0 +1,22 @@
+{
+  "name": "lcdproc-client",
+  "version": "0.0.2",
+  "description": "A partial implementation of the LCDproc protocol.",
+  "main": "lcdproc-client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/atlantageek/-lcdproc-client-node.git"
+  },
+  "keywords": [
+    "lcd"
+  ],
+  "author": "Tommie Jones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlantageek/-lcdproc-client-node/issues"
+  },
+  "homepage": "https://github.com/atlantageek/-lcdproc-client-node"
+}
