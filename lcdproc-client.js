@@ -21,7 +21,6 @@ function widget_val(name, x, y,value) {
 function init() {
   var self = this;
   this.socket = new net.Socket();
-  console.log('connect ' + this.port);
   this.socket.connect(this.host, this.port, function() {
     this.write("hello\n");
     self.emit('init');
@@ -30,7 +29,6 @@ function init() {
 
   this.socket.on('data', function(d) {
     data_str = d.toString();
-    console.log('DATA ' + data_str);
     params = data_str.split(' ');
     if (params[0] == 'connect')
     {
@@ -39,16 +37,14 @@ function init() {
         if (params[i - 1] == 'wid')
         {
           self.width = params[i];
-          console.log('W' + self.width);
         }
         if (params[i - 1] == 'hgt')
         {
           self.height = params[i];
-          console.log('H' + self.height);
         }
       }
       self.socket.write("client_set name {NODEJS}\n");
-      self.on('data',function(d) { console.log(d);});
+      //self.on('data',function(d) { console.log(d);});
       self.emit('ready');
     }
     });
@@ -67,6 +63,5 @@ exports.LcdClient = function( p_host, p_port) {
 };
 sys.inherits(exports.LcdClient, events.EventEmitter);
 
-console.log("STARTING");
 
 
