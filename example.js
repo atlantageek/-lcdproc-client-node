@@ -1,28 +1,49 @@
-var Client = require('node-rest-client').Client;
-var LcdClient = require('./lcdproc-client.js').LcdClient;
+var LcdProcClient = require('lcdproc-client');
+var lcd = new LcdProcClient(13666, 'localhost');
 
-var cnt = 0;
+var widgets = {
+  'first_line': {
+    row: 1,
+    default: 'Loading line 1....',
+    interval: 30000
+  },
+  'second_line': {
+    row: 2,
+    default: 'Loading line 2....',
+    interval: 1200000
+  }
+};
 
-lc = new LcdClient(13666,'localhost');
+lcd.on('ready', function () {
 
-function update_display() {
-  lc.widget_val("second_line",1,2,"COUNT " + cnt);
-  cnt = cnt + 1;
-  console.log("CNT");
-}
+  // Create LCD screen.
+  lcd.createScreen('MyInfoScreen', {
+    heartbeat: 'off'
+  });
 
+  // Loop through and set up widgets.
+  Object.keys(widgets).forEach(function (key) {
 
-lc.on('init', function() {console.log("HI");});
-lc.on('ready', function() {
-  console.log("WIDTH: " + lc.width);
-  console.log("HEIGHT: " + lc.height);
-  lc.screen("bacon");
-  lc.widget("first_line");
-  lc.widget_val("first_line",1,1,"This is a line");
-  lc.widget("second_line");
-  lc.widget_val("second_line",1,2,"This is a second line");
-  setInterval(update_display, 3000);
+    var widget = widgets[key];
+
+    // Updates widget with 'static string'; you would probably want to fetch
+    // data from somewhere.
+    var updateWidget = function () {
+      lcd.updateWidget(key, 1, widget.row, 20, widget.row, 'h', 1, 'static string');
+    };
+
+    // Make it scoll.
+    lcd.addWidget(key, 'scroller');
+
+    // Set initial values.
+    lcd.updateWidget(key, 1, widget.row, 20, widget.row, 'h', 1, widget.default);
+
+    // Update continuously.
+    updateWidget();
+    setInterval(updateWidget, widget.interval);
+
+  });
+
 });
-lc.init();
 
-
+lcd.init();

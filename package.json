@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/atlantageek/-lcdproc-client-node/issues"
   },
-  "homepage": "https://github.com/atlantageek/-lcdproc-client-node"
+  "homepage": "https://github.com/atlantageek/-lcdproc-client-node",
+  "dependencies": {
+    "lodash": "^2.4.1"
+  }
 }
